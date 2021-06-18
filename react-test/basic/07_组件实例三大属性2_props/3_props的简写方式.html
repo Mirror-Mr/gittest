@@ -1,0 +1,92 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-02-01 18:59:13
+ * @LastEditTime: 2021-02-22 12:05:40
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\basic\07_组件实例三大属性2_props\2_对props进行限制.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3_props的简写方式</title>
+  </head>
+  <body>
+    <!-- 容器 -->
+    <div class="" id="test1"></div>
+    <div class="" id="test2"></div>
+    <div class="" id="test3"></div>
+    <!-- 引入react核心库 全局有了React对象 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom 用于支持react操作DOM  全局有了ReactDOM对象-->
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <!-- 引入babel 用于将jsx转为js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <!-- 引入prop-types 用于对组件标签属性进行限制 全局有了PropTypes对象-->
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/babel">
+      //babel编译开启ES5严格模式
+      // 创建组件
+      class Person extends React.Component {
+          
+          constructor(props){
+            // 构造器是否接收props 是否将props传递给super 取决于是否想要在构造器中通过this实例对象访问props
+            super(props);
+            console.log('constructor',this.props)
+          }
+        // static 关键字静态属性 给Person类自身添加属性
+        // 给Person的实例对象设置组件标签传参属性限制
+        static propTypes = {
+          // string必须为字符串 isRequired必须传
+          name: PropTypes.string.isRequired,
+          sex: PropTypes.string,
+          // number必须为数字
+          age: PropTypes.number,
+          // func必须为函数
+          speak: PropTypes.func,
+        };
+        // 给Person的实例对象设置组件标签传参默认值
+        static defaultProps = {
+          sex: "男",
+          age: 18,
+        };
+        render() {
+          const { name, age, sex } = this.props;
+          // props是只读的
+          // this.props.name = 'jack';//此行代码会报错，因为props是只读的
+          return (
+            <ul>
+              <li>姓名：{name}</li>
+              <li>性别：{sex}</li>
+              <li>年龄：{age + 1}</li>
+            </ul>
+          );
+        }
+      }
+
+      // 渲染组件到页面
+      ReactDOM.render(
+        <Person name="tom" age={20} sex="男" speak={speak} />,
+        document.getElementById("test1")
+      );
+      ReactDOM.render(
+        <Person name="jerry" age={18} sex="女" />,
+        document.getElementById("test2")
+      );
+
+      const p = { name: "lucy", age: 21, sex: "女" };
+      // ReactDOM.render(<Person name='lucy' age='21' sex='女'/>,document.getElementById('test3'))
+      // ReactDOM.render(<Person name={p.name} age={p.age} sex={p.sex}/>,document.getElementById('test3'))
+      // 批量传递组件标签属性
+      ReactDOM.render(<Person {...p} />, document.getElementById("test3"));
+      function speak() {
+        console.log("我饿了");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-02-22 12:23:21
+ * @LastEditTime: 2021-02-22 18:30:37
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\basic\08_组件实例三大属性3_refs\1_ref.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4_createRef的使用</title>
+    <!-- 回调函数：1.自己定义 2.自己没调用 3.被别人调用了 -->
+  </head>
+  <body>
+    <!-- 容器 -->
+    <div id="test"></div>
+    <!-- 引入react核心库 全局有了React对象 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom 用于支持react操作DOM  全局有了ReactDOM对象-->
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <!-- 引入babel 用于将jsx转为js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      // 创建组件
+      class Demo extends React.Component {
+        /**
+         * React.createRef调用后可以返回一个容器，该容器可以存储被ref所标识的节点
+         * 该容器一次只能存储一个节点，前一个会被后一个覆盖
+         * 所以需要创建多个容器 推荐使用
+         */
+        myRef1 = React.createRef();
+        myRef2 = React.createRef();
+
+        //   展示左侧输入框的数据
+        // 自定义方法 要用赋值语句和箭头函数
+        showData1 = () => {
+          alert(this.myRef1.current.value);
+          // console.log(this.myRef)
+        };
+        showData2 = () => {
+          alert(this.myRef2.current.value);
+        };
+        render() {
+          // ref里面是回调函数
+          return (
+            <div>
+              {/*ref={this.myRef}表示将当前ref所在的节点存储到之前所获取的容器中*/}
+              <input
+                ref={this.myRef1}
+                type="text"
+                placeholder="点击按钮显示数据"
+              />
+              &nbsp;
+              <input
+                onBlur={this.showData2}
+                ref={this.myRef2}
+                type="text"
+                placeholder="失去焦点显示数据"
+              />
+              <br />
+              <button onClick={this.showData1}>点击显示第一个输入数据</button>
+              &nbsp;
+            </div>
+          );
+        }
+      }
+      //   渲染组件到页面
+      ReactDOM.render(<Demo />, document.getElementById("test"));
+    </script>
+  </body>
+</html>

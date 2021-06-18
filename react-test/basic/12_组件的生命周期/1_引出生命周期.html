@@ -1,0 +1,84 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-03-17 19:09:52
+ * @LastEditTime: 2021-03-18 11:29:24
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\basic\12_组件的生命周期\1_引出生命周期.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1_引出生命周期</title>
+  </head>
+  <body>
+    <!-- 容器 -->
+    <div id="demo"></div>
+    <!-- 引入react核心库 全局有了React对象 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom 用于支持react操作DOM  全局有了ReactDOM对象-->
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <!-- 引入babel 用于将jsx转为js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      // 创建组件
+      class Life extends React.Component {
+        state = {
+          opacity: 1,
+        };
+        // 作为回调函数被调用 为避免this指向丢失 所以要写成赋值语句+箭头函数的形式
+        kill = () => {
+          //   卸载组件  unmount卸载Component组件At在Node节点内
+          ReactDOM.unmountComponentAtNode(document.getElementById("demo"));
+        };
+        /**
+         *   为什么不写成赋值语句+箭头函数的形式？
+         *  被Life的实例对象直接调用 不存在 this指向Life的实例对象
+         * */
+        // 组件被挂载后
+        componentDidMount() {
+          this.timer = setInterval(() => {
+            let { opacity } = this.state;
+            opacity -= 0.1;
+            if (opacity <= 0) opacity = 1;
+            // 设置新的透明度 当属性名和属性值同名 可以使用简写
+            this.setState({ opacity });
+          }, 200);
+        }
+        //  组件将要被卸载时被调用
+        componentWillUnmount() {
+          // 清空定时器
+          clearInterval(this.timer);
+        }
+        //  初始化渲染+状态更新后调用
+        render() {
+          // render被调用1+n次 会开启无数个定时器
+          // setInterval(()=>{
+          //   // 获取原状态
+          //   let {opacity} = this.state;
+          //   // 减小0.1
+          //   opacity -= 0.1;
+          //   if(opacity <= 0)opacity = 1;
+          //   // 设置新的透明度 当属性名和属性值同名 可以使用简写
+          //   this.setState({opacity})
+          // },200)
+          return (
+            <div>
+              <h2 style={{ opacity: this.state.opacity }}>
+                谷主大人不开心了怎么办？
+              </h2>
+              <button onClick={this.kill}>把我杀了给谷主大人尽尽兴！</button>
+            </div>
+          );
+        }
+      }
+      //   渲染组件
+      ReactDOM.render(<Life />, document.getElementById("demo"));
+    </script>
+  </body>
+</html>

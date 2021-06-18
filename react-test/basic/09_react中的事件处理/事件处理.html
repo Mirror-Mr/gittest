@@ -1,0 +1,80 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-02-22 18:28:20
+ * @LastEditTime: 2021-02-22 19:07:54
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\basic\09_react中的事件处理\事件处理.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件处理</title>
+  </head>
+  <body>
+    <!-- 容器 -->
+    <div id="test"></div>
+    <!-- 引入react核心库 全局有了React对象 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom 用于支持react操作DOM  全局有了ReactDOM对象-->
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <!-- 引入babel 用于将jsx转为js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      // 创建组件
+      class Demo extends React.Component {
+        /**
+         * 1.通过onXxx属性指定事件处理函数(注意大小写)
+                1)React使用的是自定义(合成)事件, 而不是使用的原生DOM事件 ————为了更好的兼容性
+                2)React中的事件是通过事件委托方式处理的(委托给组件最外层的元素) ————为了高效
+           2.通过event.target得到发生事件的DOM元素对象 ————不能过度使用ref
+         */
+        // 创建ref容器
+        myRef1 = React.createRef();
+        myRef2 = React.createRef();
+
+        //   展示左侧输入框的数据
+        // 自定义方法 要用赋值语句和箭头函数
+        showData1 = () => {
+          alert(this.myRef1.current.value);
+          // console.log(this.myRef)
+        };
+        //   展示右侧输入框的数据
+        showData2 = (event) => {
+        //   alert(this.myRef2.current.value);
+          alert(event.target.value);
+        };
+        render() {
+          // ref里面是回调函数
+          return (
+            <div>
+              {/*ref={this.myRef}表示将当前ref所在的节点存储到之前所获取的容器中*/}
+              <input
+                ref={this.myRef1}
+                type="text"
+                placeholder="点击按钮显示数据"
+              />
+              &nbsp;
+              {/*不要过度的使用ref 有别的写法就用别的写法*/}
+              <input
+                onBlur={this.showData2}
+                type="text"
+                placeholder="失去焦点显示数据"
+              />
+              <br />
+              <button onClick={this.showData1}>点击显示第一个输入数据</button>
+              &nbsp;
+            </div>
+          );
+        }
+      }
+      //   渲染组件到页面
+      ReactDOM.render(<Demo />, document.getElementById("test"));
+    </script>
+  </body>
+</html>

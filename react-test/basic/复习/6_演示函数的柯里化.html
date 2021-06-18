@@ -1,0 +1,34 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-03-17 18:50:29
+ * @LastEditTime: 2021-03-17 18:57:17
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\basic\复习\6_演示函数的柯里化.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6_演示函数的柯里化</title>
+</head>
+<body>
+    <script>
+        // 未应用到函数柯里化思想
+        // function sum(a,b,c){
+        //     console.log(a+b+c)
+        // }
+        // 应用函数柯里化思想
+        function sum(a){
+            return (b)=>{
+                return(c)=>{
+                    console.log(a+b+c)
+                }
+            }
+        }
+        // sum(1,2,3)
+        sum(1)(2)(3)
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-03-17 18:09:09
+ * @LastEditTime: 2021-03-17 19:07:11
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\basic\11_高阶函数_函数柯里化\高阶函数_函数柯里化.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2_不用函数柯里化实现</title>
+  </head>
+  <body>
+    <!-- 容器 -->
+    <div id="demo"></div>
+    <!-- 引入react核心库 全局有了React对象 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom 用于支持react操作DOM  全局有了ReactDOM对象-->
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <!-- 引入babel 用于将jsx转为js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+    /** 
+     *   高阶函数：如果一个函数符合下面2个规范中的任意一个 ，则该函数就是高阶函数
+     *      1.若A函数，接收的参数是一个函数，则A就可以称为一个高阶函数
+     *      2.若A函数，调用后的返回值依然是一个函数，则A就可以称为一个高阶函数
+     *      常见的高阶函数有：Promise、setTimeout、arr.map()等等
+     * 
+     *   函数的柯里化：通过函数调用后继续返回函数的方式，实现多次接收参数最后统一处理的函数编码形式
+     */
+      // 创建组件
+      class Login extends React.Component {
+        // 初始化状态
+        state = {
+          username: "",
+          password: "",
+        };
+        handleSubmit = (e) => {
+          // 阻止表单提交
+          e.preventDefault();
+          const { username, password } = this.state;
+          alert(`你输入的用户名是:${username}，你输入的密码是:${password}`);
+        };
+        //保存表单数据到状态中 应用到了函数的柯里化
+        saveFormData = (dataType,value) => {
+            this.setState({ [dataType]: value });
+        };
+        // 表单提交传参需添加name属性
+        render() {
+          return (
+            // 删掉form的action属性也无法阻止页面刷新这一默认行为
+            <form action="http://www.baidu.com" onSubmit={this.handleSubmit}>
+              用户名：
+              {/*name属性表示跳转页面时要传递的参数*/} {/*   onChange={this.saveFormData("username")}表示将saveFormData函数的返回值作为change事件的回调函数         */}
+              <input
+                type="text"
+                name="username"
+                onChange={event=>this.saveFormData("username",event.target.value)}
+              />
+              密码：
+              <input
+                type="password"
+                name="password"
+                onChange={event=>this.saveFormData("password",event.target.value)}
+              />
+              <button>登录</button>
+            </form>
+          );
+        }
+      }
+      // 渲染组件
+      ReactDOM.render(<Login />, document.getElementById("demo"));
+    </script>
+  </body>
+</html>

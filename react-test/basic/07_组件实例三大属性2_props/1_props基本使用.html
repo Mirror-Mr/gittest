@@ -1,0 +1,61 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-02-01 17:41:31
+ * @LastEditTime: 2021-02-01 19:01:24
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\basic\07_组件实例三大属性2_props\1_props基本使用.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1_props基本使用</title>
+</head>
+<body>
+    <!-- 容器 -->
+    <div class="" id="test1"></div>
+    <div class="" id="test2"></div>
+    <div class="" id="test3"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom 用于支持react操作DOM -->
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <!-- 引入babel 用于将jsx转为js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">//babel编译开启ES5严格模式
+    // 创建组件
+    class Person extends React.Component{
+        render(){
+            const {name,age,sex} = this.props;
+            return (
+                <ul>
+                    <li>姓名：{name}</li>
+                    <li>性别：{sex}</li>
+                    <li>年龄：{age + 1}</li>
+                </ul>
+            )
+        }
+    }
+    // 渲染组件到页面
+    /**
+     * props传参存在的几个问题
+     * 1.对传递属性进行类型的限制
+     * 2.............必要性的限制
+     * 3.未传递的某参数要执行默认值
+     */ 
+    ReactDOM.render(<Person name='tom' age={20} sex='男'/>,document.getElementById('test1'))
+    ReactDOM.render(<Person name='jerry' age={18} sex='女'/>,document.getElementById('test2'))
+
+    const p = {name:'lucy',age:21,sex:'女'}
+    // ReactDOM.render(<Person name='lucy' age='21' sex='女'/>,document.getElementById('test3'))
+    // ReactDOM.render(<Person name={p.name} age={p.age} sex={p.sex}/>,document.getElementById('test3'))
+    // 批量传递组件标签属性
+    ReactDOM.render(<Person {...p}/>,document.getElementById('test3'))
+    </script>
+</body>
+</html>

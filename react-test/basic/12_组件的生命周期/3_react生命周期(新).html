@@ -1,0 +1,139 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-03-18 11:39:03
+ * @LastEditTime: 2021-03-18 17:09:13
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\basic\12_组件的生命周期\2_react生命周期(旧).html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3_react生命周期(新)</title>
+  </head>
+  <body>
+    <!-- 容器 -->
+    <div id="demo"></div>
+    <!-- 引入react核心库 全局有了React对象 -->
+    <script
+      type="text/javascript"
+      src="../js/new/react.development.js"
+    ></script>
+    <!-- 引入react-dom 用于支持react操作DOM  全局有了ReactDOM对象-->
+    <script
+      type="text/javascript"
+      src="../js/new/react-dom.development.js"
+    ></script>
+    <!-- 引入babel 用于将jsx转为js -->
+    <script type="text/javascript" src="../js/new/babel.min.js"></script>
+    <script type="text/babel">
+      /**
+       *      1.初始化阶段：由ReactDOM.render()触发 -- 初次渲染
+       *                  1.constructor()
+       *                  2.getDerivedStateFromProps()
+       *                  3.render()
+       *                  4.componentDidMount() 一般在这个方法里进行一些初始化的事，如开启定时器、发送网络请求
+       *      2.更新阶段：由组件内部this.setState()或父组件render触发
+       *                  1.getDerivedStateFromProps()
+       *                  2.shouldComponentUpdate()
+       *                  3.render()
+       *                  4.getSnapshotBeforeUpdate()
+       *                  4.componentDidUpdate()
+       *      3.卸载阶段：由ReactDOM.unmountComponentAtNode()触发
+       *                  1.componentWillUnmount() 一般在这个方法里进行一些收尾的事，如清除定时器
+       * 
+       *        新版相比旧版删除三个will钩子函数 新增两个get钩子函数
+       *
+       */
+      // 创建组件
+      class Count extends React.Component {
+        // 构造器
+        constructor(props) {
+          console.log("Count---constructor");
+          super(props);
+          // 初始化状态
+          this.state = {
+            count: 0,
+          };
+        }
+        // +2按钮的回调
+        add = () => {
+          let { count } = this.state;
+          count++;
+          this.setState({ count });
+        };
+        // 卸载组件按钮的回调
+        death = () => {
+          ReactDOM.unmountComponentAtNode(document.getElementById("demo"));
+        };
+        // 强制更新按钮的回调
+        force = () => {
+          this.forceUpdate();
+        };
+
+        // 该钩子方法可用于 state的值在任何时候都取决于props
+        static getDerivedStateFromProps(props, state) {
+          console.log("getDerivedStateFromProps", props, state);
+          // 返回状态对象若为null则无影响  若不为null则state等于返回对象
+          return null;
+        }
+        // 在更新之前获取快照
+        getSnapshotBeforeUpdate() {
+          consosle.log("getSnapshotBeforeUpdate");
+          // 返回的数据会传递给componentDidUpdate钩子
+          return null;
+        }
+        // 组件挂载完的钩子
+        componentDidMount() {
+          console.log("Count---componentDidMount");
+        }
+        // 组件将要被卸载前调用
+        componentWillUnmount() {
+          console.log("Count---componentWillUnmount");
+        }
+        //页面每次更新都会调用 决定组件是否要被更新的钩子 不写这个函数，底层会默认返回true
+        shouldComponentUpdate() {
+          console.log("Count---shouldComponentUpdate");
+          /**
+           *  不写返回值 会默认返回undefined 页面不会更新
+           * 返回true 页面会更新
+           * 返回false 页面不更新
+           */
+          return true;
+        }
+
+        // 组件更新后调用
+        componentDidUpdate(preProps, preState, snapshotValue) {
+          //参数为更新前的props、state和getSnapshotBeforeUpdate返回的快照对象
+          console.log(
+            "Count---componentDidUpdate",
+            preProps,
+            preState,
+            snapshotValue
+          );
+        }
+        // 组件挂载
+        render() {
+          console.log("Count---render");
+          let { count } = this.state;
+          return (
+            <div>
+              <h2>显示数值:{count}</h2>
+              <button onClick={this.add}>+1</button>
+              <button onClick={this.death}>卸载</button>
+              <button onClick={this.force}>
+                不更改任何状态中的数据，强制更新
+              </button>
+            </div>
+          );
+        }
+      }
+
+      // 渲染组件
+      ReactDOM.render(<Count count={1} />, document.getElementById("demo"));
+      // ReactDOM.render(<A />, document.getElementById("demo"));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-02-22 18:51:16
+ * @LastEditTime: 2021-03-17 17:35:19
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\basic\10_react中收集表单数据\1_非受控组件.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2_受控组件</title>
+  </head>
+  <body>
+    <!-- 容器 -->
+    <div id="demo"></div>
+    <!-- 引入react核心库 全局有了React对象 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom 用于支持react操作DOM  全局有了ReactDOM对象-->
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <!-- 引入babel 用于将jsx转为js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      // 创建组件
+      class Login extends React.Component {
+        // 初始化状态
+        state = {
+          username:'',
+          password:''
+        }
+        handleSubmit = (e) => {
+          // 阻止表单提交
+          e.preventDefault();
+          const {username,password} = this.state;
+          alert(`你输入的用户名是:${username}，你输入的密码是:${password}`)
+        }
+        // 保存用户名到状态中
+        saveUsername = (event) =>{
+          this.setState({username:event.target.value})
+        }
+        // 保存密码到状态中
+        savePassword = (event) =>{
+          this.setState({password:event.target.value})
+        }
+        // 表单提交传参需添加name属性
+        render() {
+          return (
+            // 删掉form的action属性也无法阻止页面刷新这一默认行为
+            <form action="http://www.baidu.com" onSubmit={this.handleSubmit}>
+              用户名：
+              {/*name属性表示跳转页面时要传递的参数*/}
+              <input type="text" name="username" onChange = {this.saveUsername}/>
+              密码：
+              <input type="password" name="password" onChange = {this.savePassword}/>
+              <button>登录</button>
+            </form>
+          );
+        }
+      }
+      // 渲染组件
+      ReactDOM.render(<Login />, document.getElementById("demo"));
+    </script>
+  </body>
+</html>

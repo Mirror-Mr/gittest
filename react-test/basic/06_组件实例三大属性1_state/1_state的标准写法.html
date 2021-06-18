@@ -1,0 +1,80 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-01-28 11:02:55
+ * @LastEditTime: 2021-02-01 16:48:58
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\basic\06_组件实例三大属性1_state\state.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1_state的标准写法</title>
+</head>
+<body>
+    <!-- 容器 -->
+    <div class="" id="test"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom 用于支持react操作DOM -->
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <!-- 引入babel 用于将jsx转为js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">//babel编译开启ES5严格模式
+    // 1.创建组件
+    class Weather extends React.Component{
+        // 构造器调用几次？ -- 1次
+        constructor(props){
+            super(props)
+            // this操作只能放在super之后
+            // 初始化状态
+            this.state = {
+                isHot:false,
+                wind:'微风'
+            }
+            // 解决类中方法this丢失问题 bind不会调用函数 而是会返回一个被改变了this指向的新函数
+            this.changeWeather = this.changeWeather.bind(this)
+        }
+
+        // render调用几次？ -- 1+n次 1是初始化的那次 n是state更新的次数
+        render(){
+            console.log(this);
+            // 解构赋值
+            const {isHot,wind} = this.state;
+            /**
+             *  react设置点击事件注意事项
+             * 1.是onClick（react封装后的写法）而不是onclick（原生js写法）
+             * 2.onClick = {xxx}的含义：将{}里的变量作为onClick的回调事件 
+             *        如果写成onClick={demo()}则表示 是将demo()方法执行后的返回值undefined作为onClick的回调
+             *        即在页面加载时demo()函数就会执行
+             */ 
+            // return <h1 onClick={demo()}>今天好{isHot?'热':'冷'}</h1>
+            return <h1 onClick={this.changeWeather}>今天好{isHot?'热':'冷'}，{wind}</h1>
+        }
+        
+        // changeWeather -- 点几次调几次 初始化时并没有被调用
+        changeWeather(){
+            // changeWeather放在哪里？ -- Weather的原型对象上，供实例使用
+            // 由于changeWeather是作为onClick的回调 所以不是用过实例调用的，而是直接调用
+            // 类中方法默认开启了局部作用域内的严格模式 所以changeWeather中的this为undefined
+            // console.log(this)
+
+            // 获取原来的isHot值
+            const isHot = this.state.isHot;
+            // 注意：状态（state）不可直接更改，下面这行就是直接更改
+            // this.state.isHot = !isHot;//错误写法
+            // 状态（state）的更改 要借助一个内置的API（setState）进行更改 只更新需要进行更新的部分 不会替换整个state
+            this.setState({isHot:!isHot});//正确写法
+        }
+    }
+    // 2.渲染组件到页面
+    ReactDOM.render(<Weather />,document.getElementById('test'))
+
+    </script>
+</body>
+</html>

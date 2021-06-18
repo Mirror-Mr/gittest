@@ -1,0 +1,83 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-03-18 16:28:00
+ * @LastEditTime: 2021-03-18 17:00:37
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\basic\12_组件的生命周期\4_getSnapshotBeforeUpdate的使用场景.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4_getSnapshotBeforeUpdate的使用场景</title>
+    <style>
+      .list {
+        width: 200px;
+        height: 150px;
+        background-color: skyblue;
+        overflow: auto;
+      }
+      .news {
+        height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 容器 -->
+    <div id="demo"></div>
+    <!-- 引入react核心库 全局有了React对象 -->
+    <script
+      type="text/javascript"
+      src="../js/new/react.development.js"
+    ></script>
+    <!-- 引入react-dom 用于支持react操作DOM  全局有了ReactDOM对象-->
+    <script
+      type="text/javascript"
+      src="../js/new/react-dom.development.js"
+    ></script>
+    <!-- 引入babel 用于将jsx转为js -->
+    <script type="text/javascript" src="../js/new/babel.min.js"></script>
+    <script type="text/babel">
+      // 创建组件
+      class NewsList extends React.Component {
+        state = {
+          newsList: [],
+        };
+        componentDidMount() {
+          setInterval(() => {
+            //   获取原状态
+            const { newsList } = this.state;
+            // 模拟一条新闻
+            const news = "新闻" + (newsList.length + 1);
+            // 更新状态
+            this.setState({newsList:[news,...newsList]})
+          }, 1000);
+        }
+        getSnapshotBeforeUpdate(){
+            return this.refs.list.scrollHeight;
+        }
+        componentDidUpdate(preProps,preState,height){
+            console.log('scrollTop--'+this.refs.list.scrollTop)
+            console.log('scrollHeight--'+this.refs.list.scrollHeight)
+            console.log('height--'+height)
+            this.refs.list.scrollTop += this.refs.list.scrollHeight - height;
+        }
+        render() {
+          return (
+            <div className="list" ref='list'>
+                {
+                    this.state.newsList.map((n,index)=>{
+                        return <div className = 'news' key={index}>{n}</div>
+                    })
+                }
+            </div>
+          );
+        }
+      }
+      // 渲染组件
+      ReactDOM.render(<NewsList />, document.getElementById("demo"));
+    </script>
+  </body>
+</html>

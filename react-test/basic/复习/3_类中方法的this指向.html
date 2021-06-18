@@ -1,0 +1,42 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-01-28 16:07:52
+ * @LastEditTime: 2021-01-28 16:30:23
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\basic\复习\3_类中的方法this指向.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3_类中方法的this指向</title>
+</head>
+<body>
+    <script>
+        class Person{
+            constructor(name,age){
+                this.name = name;
+                this.age = age;
+            }
+            /**
+             * 类中定义的方法 会在局部作用域中开启严格模式
+             */ 
+            study(){
+                // study方法放在了哪里？ -- 类的原型对象上，供实例调用
+                // 通过Person实例调用study时，study中的this就是Person实例
+                console.log(this);
+            }
+        }
+        const p1 = new Person('jane',18);
+        p1.study();//通过实例调用study方法
+        /**
+         * p1上是没有study方法的 会顺着原型链 在它的原型Person对象上找到 即p1.study只是一个指向study方法的索引
+         * 这一步只是多了一个指向study方法的x变量索引 
+         */ 
+        const x = p1.study;
+        x()//全局调用（应指向window） + study是定义在类中的方法（应指向undefined 覆盖前者）
+    </script>
+</body>
+</html>
