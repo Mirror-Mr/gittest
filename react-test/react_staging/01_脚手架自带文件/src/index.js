@@ -6,14 +6,16 @@
  * @Description: In User Settings Edit
  * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\react_staging\src\index.js
  */
+
+// 入口文件
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// 入口文件
 ReactDOM.render(
+  // React.StrictMode检测内部不合理代码
   <React.StrictMode>
     <App />
   </React.StrictMode>,

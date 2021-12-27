@@ -1,4 +1,4 @@
-// 记录页面性能
+// 记录页面性能配置文件
 const reportWebVitals = onPerfEntry => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
     import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {

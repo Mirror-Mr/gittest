@@ -8,13 +8,29 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>react脚手架</title>
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <!-- 针对github搜索案例 ./css/bootstrap.css加个.的路径在多级路由情况下会造成样式丢失 直接 /xxx 和 %PUBLIC_URL%/xxx 则不会 因为/和%PUBLIC_URL%表示是public文件夹下 ./则是当前文件夹下-->
+    <!-- 还有一种方法 使用HashRouter 因为链接中#后的内容都会被当作前端资源不会传递给服务器 会被自动忽略 -->
+    <!-- <link rel="stylesheet" href="./css/bootstrap.css"> -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="%PUBLIC_URL%/css/bootstrap.css"> -->
+    <style>
+        /* 给被点击的navlink标签追加的类名设置样式  受到bootstrap样式的影响 要给自定义的样式加上优先级*/
+        .click{
+            background-color: orange !important;
+            color: #fff !important;
+        }
+    </style>
 </head>
+
 <body>
-    <div id="root"></div>
+    <div id="root">
+    </div>
 </body>
+
 </html>

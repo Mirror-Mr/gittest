@@ -1,0 +1,133 @@
+.icon-loading-xingqiu { 
+    display: inline-block; 
+    vertical-align: middle; 
+    background-image: url(../img/loading-qiu.png);
+    background-size: 640px 7790px;
+    width: 640px; 
+    height: 640px;
+}
+
+@keyframes loading-xingqiu {
+    0% {  background-position: 0px 0px; }   
+    10% {  background-position: 0px -650px; }
+    20% {  background-position: 0px -1300px; }
+    30% {  background-position: 0px -1950px; }
+    40% {  background-position: 0px -2600px; }
+    50% {  background-position: 0px -3250px; }
+    60% {  background-position: 0px -3900px; }
+    70% {  background-position: 0px -4550px; }
+    80% {  background-position: 0px -5200px; }
+    90% {  background-position: 0px -5850px; }
+    100% {  background-position: 0px -6500px; }
+}
+
+.icon-loading-track { 
+    display: inline-block; 
+    vertical-align: middle; 
+    background-image: url(../img/loading.png);
+    background-size: 750px 18701px; 
+    width: 750px; 
+    height: 179px; 
+}
+@keyframes loading-track {
+    0% {  background-position: 0px 0px; }
+    1% {  background-position: 0px -189px; }
+    2% {  background-position: 0px -378px; }
+    3% {  background-position: 0px -567px; }
+    4% {  background-position: 0px -756px; }
+    5% {  background-position: 0px -945px; }
+    6% {  background-position: 0px -1134px; }
+    7% {  background-position: 0px -1323px; }
+    8% {  background-position: 0px -1512px; }
+    9% {  background-position: 0px -1701px; }
+    10% { background-position: 0px -1890px; }
+    11% {  background-position: 0px -2079px; }
+    12% {  background-position: 0px -2268px; }
+    14% {  background-position: 0px -2457px; }
+    15% {  background-position: 0px -2646px; }
+    16% {  background-position: 0px -2835px; }
+    17% {  background-position: 0px -3024px; }
+    18% {  background-position: 0px -3213px; }
+    19% {  background-position: 0px -3402px; }
+    20% {  background-position: 0px -3591px; }
+    21% {  background-position: 0px -3780px; }
+    22% {  background-position: 0px -3969px; }
+    23% {  background-position: 0px -4158px; }
+    24% {  background-position: 0px -4347px; }
+    25% {  background-position: 0px -4536px; }
+    26% {  background-position: 0px -4725px; }
+    27% {  background-position: 0px -4914px; }
+    28% {  background-position: 0px -5103px; }
+    29% {  background-position: 0px -5292px; }
+    30% {  background-position: 0px -5481px; }
+    31% {  background-position: 0px -5670px; }
+    32% {  background-position: 0px -5859px; }
+    33% {  background-position: 0px -6048px; }
+    34% {  background-position: 0px -6237px; }
+    35% {  background-position: 0px -6426px; }
+    36% {  background-position: 0px -6615px; }
+    37% {  background-position: 0px -6804px; }
+    38% {  background-position: 0px -6993px; }
+    39% {  background-position: 0px -7182px; }
+    40% {  background-position: 0px -7371px; }
+    41% {  background-position: 0px -7560px; }
+    42% {  background-position: 0px -7749px; }
+    43% {  background-position: 0px -7938px; }
+    44% {  background-position: 0px -8127px; }
+    45% {  background-position: 0px -8316px; }
+    46% {  background-position: 0px -8505px; }
+    47% {  background-position: 0px -8694px; }
+    48% {  background-position: 0px -8883px; }
+    49% {  background-position: 0px -9072px; }
+    50% {  background-position: 0px -9261px; }
+    51% {  background-position: 0px -9450px; }
+    52% {  background-position: 0px -9639px; }
+    53% {  background-position: 0px -9828px; }
+    54% {  background-position: 0px -10017px; }
+    55% {  background-position: 0px -10206px; }
+    56% {  background-position: 0px -10395px; }
+    57% {  background-position: 0px -10584px; }
+    58% {  background-position: 0px -10773px; }
+    59% {  background-position: 0px -10962px; }
+    60% {  background-position: 0px -11151px; }
+    61% {  background-position: 0px -11340px; }
+    62% {  background-position: 0px -11529px; }
+    63% {  background-position: 0px -11718px; }
+    64% {  background-position: 0px -11907px; }
+    65% {  background-position: 0px -12096px; }
+    66% {  background-position: 0px -12285px; }
+    67% {  background-position: 0px -12474px; }
+    68% {  background-position: 0px -12663px; }
+    69% {  background-position: 0px -12852px; }
+    70% {  background-position: 0px -13041px; }
+    71% {  background-position: 0px -13230px; }
+    72% {  background-position: 0px -13419px; }
+    73% {  background-position: 0px -13608px; }
+    74% {  background-position: 0px -13797px; }
+    75% {  background-position: 0px -13986px; }
+    76% {  background-position: 0px -14175px; }
+    77% {  background-position: 0px -14364px; }
+    78% {  background-position: 0px -14553px; }
+    79% {  background-position: 0px -14742px; }
+    80% {  background-position: 0px -14931px; }
+    81% {  background-position: 0px -15120px; }
+    82% {  background-position: 0px -15309px; }
+    83% {  background-position: 0px -15498px; }
+    84% {  background-position: 0px -15687px; }
+    85% {  background-position: 0px -15876px; }
+    86% {  background-position: 0px -16065px; }
+    87% {  background-position: 0px -16254px; }
+    88% {  background-position: 0px -16443px; }
+    89% {  background-position: 0px -16632px; }
+    90% {  background-position: 0px -16821px; }
+    91% {  background-position: 0px -17010px; }
+    92% {  background-position: 0px -17199px; }
+    93% {  background-position: 0px -17388px; }
+    94% {  background-position: 0px -17577px; }
+    95% {  background-position: 0px -17766px; }
+    96% {  background-position: 0px -17955px; }
+    97% {  background-position: 0px -18144px; }
+    98% {  background-position: 0px -18333px; }
+    99% {  background-position: 0px -18522px; }
+    100% {  background-position: 0px -18522px; }
+}

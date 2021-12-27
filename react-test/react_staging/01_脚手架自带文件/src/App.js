@@ -7,6 +7,7 @@
  * @FilePath: \web-masterc:\Users\leishan\Desktop\react-test\react_staging\src\App.js
  */
 import logo from './logo.svg';
+// 引入该组件样式文件
 import './App.css';
 // 函数式组件
 function App() {
